@@ -1,4 +1,4 @@
-# elysian-contracts
+# launch-contracts
 
 This is the smart contract code for Elysian Finance launch phase. 
 
