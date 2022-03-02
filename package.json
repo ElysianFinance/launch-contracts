@@ -1,6 +1,6 @@
 {
-  "name": "@elysianfinance/elysian-contracts",
-  "version": "1.0.1",
+  "name": "@elysianfinance/launch-contracts",
+  "version": "1.0.0",
   "description": "",
   "engines": {
     "node": ">=12"
@@ -12,7 +12,7 @@
   "scripts": {
     "clean-deploy": "sh prebuild.sh && npm run deploy-ganache",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "truffle compile",
+    "build": "truffle build",
     "deploy-ganache": "truffle deploy --network ganache --reset",
     "configure-ganache": "truffle migrate --network ganache -f 3"
   },
