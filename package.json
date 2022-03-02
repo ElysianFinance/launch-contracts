@@ -1,0 +1,40 @@
+{
+  "name": "@elysianfinance/elysian-contracts",
+  "version": "1.0.1",
+  "description": "",
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "deployed/",
+    "README.md"
+  ],
+  "scripts": {
+    "clean-deploy": "sh prebuild.sh && npm run deploy-ganache",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "truffle compile",
+    "deploy-ganache": "truffle deploy --network ganache --reset",
+    "configure-ganache": "truffle migrate --network ganache -f 3"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^1.7.0",
+    "ethers": "^5.5.1"
+  },
+  "dependencies": {
+    "@ethersproject/experimental": "^5.5.0",
+    "@metamask/detect-provider": "1.2.0",
+    "@openzeppelin/contracts": "^3.1.0-solc-0.7",
+    "@truffle/contract": "^4.4.10",
+    "bignumber.js": "^9.0.1",
+    "chai": "^4.3.6",
+    "chalk": "^4.0.0",
+    "fs-extra": "^10.0.0",
+    "openzeppelin-solidity-2.3.0": "npm:openzeppelin-solidity@2.3.0",
+    "openzeppelin-test-helpers": "^0.5.1",
+    "truffle": "^5.4.16",
+    "truffle-assertions": "^0.9.2",
+    "web3-utils": "^1.6.1"
+  }
+}

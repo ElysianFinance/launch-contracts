@@ -1,0 +1,104 @@
+{
+	"targets": {
+		"AddressResolver": {
+			"contract": "AddressResolver",
+			"address": "0x169CC549afbB7b1240727A4990eD7caE931bFb3E"
+		},
+		"ProxyElysian": {
+			"contract": "ProxyElysian",
+			"address": "0x45C1e31c451BE8D70f9bEAb42A0674471947eFF0"
+		},
+		"TokenStateElysian": {
+			"contract": "TokenStateElysian",
+			"address": "0x43F295E81Ed119939b215d72dc60ADC7524Db7Bb"
+		},
+		"SafeMath": {
+			"contract": "SafeMath",
+			"address": "0x53e39343D9e5248f664B4b6c400CE7F6a6D6B041"
+		},
+		"SafeDecimalMath": {
+			"contract": "SafeDecimalMath",
+			"address": "0x83Db41d1f8b0B768B0eF2409bD99b4991413b9aE"
+		},
+		"FlexibleStorage": {
+			"contract": "FlexibleStorage",
+			"address": "0xa4ee3D019983b494B7C4749079652683ec6C7149"
+		},
+		"ReadProxyAddressResolver": {
+			"contract": "ReadProxyAddressResolver",
+			"address": "0x3e99B710ec47b3726b18579b2Cae776529e8614c"
+		},
+		"sElysianERC20": {
+			"contract": "sElysianERC20",
+			"address": "0xaE884e04Ae844f099c08aB1091ddE2Fa3965a8dB"
+		},
+		"Elysian": {
+			"contract": "Elysian",
+			"address": "0x1718df8309282B9de6c95889D5a375499419EC63"
+		},
+		"MyTreasury": {
+			"contract": "MyTreasury",
+			"address": "0x41bA8b44D23Fb7a930BEA1aBB2034d5F9Efb7812"
+		},
+		"Rebaser": {
+			"contract": "Rebaser",
+			"address": "0x9e0CC9c000d5F1E90DfC1bC2049B5c86Add79F60"
+		},
+		"ElysianEscrow": {
+			"contract": "ElysianEscrow",
+			"address": "0x0138CB1c702Ef26d8a47D01b8C363ef404962e99"
+		},
+		"RewardEscrow": {
+			"contract": "RewardEscrow",
+			"address": "0xbb174532bC226E72e41737e5D2e726d2E7C9B330"
+		},
+		"ElysianStaking": {
+			"contract": "ElysianStaking",
+			"address": "0x15B8f9dF94b193DAff8816F140C47f935A8f6EE9"
+		},
+		"ExchangeRates": {
+			"contract": "ExchangeRates",
+			"address": "0xeA4f3614A648eA510E4A676BC125010105Fc36e9"
+		},
+		"SystemStatus": {
+			"contract": "SystemStatus",
+			"address": "0x7b7eFC927F8cD1EB5BdE4829F8187404DCf3BF4c"
+		},
+		"SystemSettings": {
+			"contract": "SystemSettings",
+			"address": "0xad1fa2d6Bd76A9CA93b05cC1D3B6b575c0CEf833"
+		},
+		"ExchangeState": {
+			"contract": "ExchangeState",
+			"address": "0x3C6D12A145EeAAE1d430e216d8224B8eDB60BeEE"
+		},
+		"Exchange": {
+			"contract": "Exchange",
+			"address": "0x362E8e3Ba734cC60c75a1c8dF3f4acD0255ec190"
+		},
+		"Distributor": {
+			"contract": "Distributor",
+			"address": "0x273E849C4e8FCAb11197aa79c4Bc2e5F09aFa4A3"
+		},
+		"StakingWarmup": {
+			"contract": "StakingWarmup",
+			"address": "0x29D91BDF94d1a96A775297926815B246dd660c50"
+		},
+		"MyTreasuryState": {
+			"contract": "MyTreasuryState",
+			"address": "0x7cD899f092C44b74060cd56D789C25c598eC902A"
+		},
+		"TreasuryVault": {
+			"contract": "TreasuryVault",
+			"address": "0xd8750F5dBBafCC58359C94bb4d23f33f51d19eee"
+		},
+		"WhiteList": {
+			"contract": "WhiteList",
+			"address": "0xFD660c995f79fd4c56EB68fB1ec305daAB4892AD"
+		},
+		"Presale": {
+			"contract": "Presale",
+			"address": "0xE65cCbc754056f6A921BF86EcCe062D6F230a73F"
+		}
+	}
+}

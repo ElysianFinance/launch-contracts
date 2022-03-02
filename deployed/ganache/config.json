@@ -1,0 +1,79 @@
+{
+	"SafeMath": {
+		"deploy": false,
+		"pars": []
+	},
+	"SafeDecimalMath": {
+		"deploy": false,
+		"pars": []
+	},
+	"FlexibleStorage": {
+		"deploy": false,
+		"pars": [
+			"resolverNeeded"
+		]
+	},
+	"AddressResolver": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"WhiteList": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"Presale": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"whitelistNeeded",
+			"0x73122a294E2cb6c22947206E45fa7B8314158fd4",
+			200
+		]
+	},
+	"ReadProxyAddressResolver": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"ProxyElysian": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"Elysian": {
+		"deploy": false,
+		"pars": [
+			"needProxy",
+			"needTokenState",
+			"owner",
+			0,
+			"resolverNeeded"
+		]
+	},
+	"TokenStateElysian": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"owner"
+		]
+	},
+	"SystemStatus": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"SystemSettings": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"resolverNeeded"
+		]
+	}
+}
