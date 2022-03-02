@@ -1,15 +1,6 @@
 # elysian-contracts
 
-This is the code for Elysian Finance smart contracts. 
-
-### Features Implemented:
-
-- [x] Treasury
-- [x] Staking 
-- [x] Rebase mechanism
-- [x] OTC (Inital token sale)
-- [ ] Bonds 
-- [ ] Governance  
+This is the smart contract code for Elysian Finance launch phase. 
 
 
 ## Requirements
