@@ -21,7 +21,7 @@ Will compile bytecode and ABIs for all .sol files found in node_modules and the 
 
 ```bash
 # build (compile all .sol sources)
-node publish build 
+npm run build 
 ```
 
 ## 3. Deploy
