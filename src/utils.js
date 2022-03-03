@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const w3utils =  require('web3-utils');
-
+const { toBN, toWei, fromWei, hexToAscii, rightPad, asciiToHex} = require('web3-utils');
+const chaiBnEqual = require("chai-bn-equal");
+ 
 const constants = {
 	BUILD_FOLDER: 'build',
 	CONTRACTS_FOLDER: 'contracts',
@@ -117,7 +118,97 @@ const getPathToNetwork = ({ network, file = 'deployment.json' } = {}) => {
     return path.join(dirName, 'deployed', network, file);
 }
 	
-const toBytes32 = key => w3utils.rightPad(w3utils.asciiToHex(key), 64);
+const toBytes32 = key => rightPad(asciiToHex(key), 64);
+
+function ensureOnlyExpectedMutativeFunctions({
+	abi,
+	hasFallback = false,
+	expected = [],
+	ignoreParents = [],
+}) {
+
+	arrayEquals = function(a, b) {
+		return (
+		  a.length === b.length &&
+		  a.every((value, index) => value === b[index])
+		);
+	};
+	
+	const removeSignatureProp = abiEntry => {
+		// Clone to not mutate anything processed by truffle
+		const clone = JSON.parse(JSON.stringify(abiEntry));
+		// remove the signature in the cases where it's in the parent ABI but not the subclass
+		delete clone.signature;
+		return clone;
+	};
+
+	const combinedParentsABI = ignoreParents
+		.reduce(
+			(memo, parent) => memo.concat(artifacts.require(parent, { ignoreLegacy: true }).abi),
+			[]
+		)
+		.map(removeSignatureProp);
+
+	const fncs = abi
+		.filter(
+			({ type, stateMutability }) =>
+				type === 'function' && stateMutability !== 'view' && stateMutability !== 'pure'
+		)
+		.map(removeSignatureProp)
+		.filter(
+			entry =>
+				!combinedParentsABI.find(
+					parentABIEntry => JSON.stringify(parentABIEntry) === JSON.stringify(entry)
+				)
+		)
+		.map(({ name }) => name);
+
+	let compare = arrayEquals(fncs.sort(), expected.sort())
+	assert(compare == true, 'Mutative functions should only be those expected.')
+
+	const fallbackFnc = abi.filter(({ type, stateMutability }) => type === 'fallback');
+
+	assert.equal(
+		fallbackFnc.length > 0,
+		hasFallback,
+		hasFallback ? 'No fallback function found' : 'Fallback function found when not expected'
+	);
+};
+
+async function mockToken ({
+	accounts,
+	name = 'name',
+	symbol = 'ABC',
+	decimals = 18,
+	supply = 1e8,
+	skipInitialAllocation = false,
+}) {
+	const [deployerAccount, owner] = accounts;
+	const totalSupply = toWei(supply.toString());
+
+	const proxy = await artifacts.require('ProxyERC20').new(owner, { from: deployerAccount });
+	// set associated contract as deployerAccount so we can setBalanceOf to the owner below
+	const tokenState = await artifacts
+		.require('TokenState')
+		.new(owner, deployerAccount, { from: deployerAccount });
+
+	if (!skipInitialAllocation && supply > 0) {
+		await tokenState.setBalanceOf(deployerAccount, totalSupply, { from: deployerAccount });
+	}
+
+	const token = await artifacts.require("ExternStateToken").new(
+		...[proxy.address, tokenState.address, name, symbol, totalSupply, decimals, owner]
+	);
+	await Promise.all([
+		tokenState.setAssociatedContract(token.address, { from: owner }),
+		proxy.setTarget(token.address, { from: owner }),
+	]);
+	 
+	return { token, tokenState, proxy };
+};
+
+const toUnit = amount => toBN(toWei(amount.toString(), 'ether'));
+const fromUnit = amount => fromWei(amount, 'ether');
 
 module.exports = {
     constants,
@@ -125,5 +216,9 @@ module.exports = {
     ensureNetwork,
     loadConnections,
     getPathToNetwork,
-    toBytes32
+    toBytes32,
+	ensureOnlyExpectedMutativeFunctions,
+	toUnit,
+	toBN,
+	mockToken
 };
