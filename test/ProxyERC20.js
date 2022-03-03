@@ -17,7 +17,7 @@ contract('ProxyERC20', accounts => {
     const account_user1 = accounts[1];
     const account_user2 = accounts[2];
 
-	it('only runs once', async () => {
+	it('Deploy mock token and test transfers', async () => {
         const { token, tokenState, proxy } = await mockToken({
 			accounts
 		});
@@ -43,7 +43,4 @@ contract('ProxyERC20', accounts => {
 			expected: ['transfer', 'transferFrom', 'approve'],
 		});
 	});
-   
-
-      
 });
