@@ -43,15 +43,6 @@ contract Elysian is  ExternStateToken, MixinResolver {
     bytes32 private constant CONTRACT_REWARDESCROW = "RewardEscrow";
     bytes32 private constant CONTRACT_VAULT = "ElysianVault";
 
-    bytes32[6] private addressesToCache = [
-        CONTRACT_SYSTEMSTATUS,
-        CONTRACT_EXRATES,
-        CONTRACT_TREASURY,
-        CONTRACT_ELYSIANESCROW,
-        CONTRACT_REWARDESCROW,
-        CONTRACT_VAULT
-    ];
-
     // ========== CONSTRUCTOR ==========
     constructor(
         address payable _proxy,
@@ -126,7 +117,7 @@ contract Elysian is  ExternStateToken, MixinResolver {
         return true;
     }
 
-    function transfer(address to, uint value) external optionalProxy returns (bool) {
+    function transfer(address to, uint value) external optionalProxy systemActive returns (bool) {
         // Perform the transfer: if there is a problem an exception will be thrown in this call.
         _transferByProxy(messageSender, to, value);
         return true;
@@ -136,7 +127,7 @@ contract Elysian is  ExternStateToken, MixinResolver {
         address from,
         address to,
         uint value
-    ) external optionalProxy /*systemActive*/ returns (bool) {
+    ) external optionalProxy systemActive returns (bool) {
         // Perform the transfer: if there is a problem,
         // an exception will be thrown in this call.
         return _transferFromByProxy(messageSender, from, to, value);
@@ -154,6 +145,11 @@ contract Elysian is  ExternStateToken, MixinResolver {
 
     modifier issuanceActive() {
         systemStatus().requireIssuanceActive();
+        _;
+    }
+
+    modifier systemActive() {
+        systemStatus().requireSystemActive();
         _;
     }
 
