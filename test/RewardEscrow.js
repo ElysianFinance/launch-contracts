@@ -1,21 +1,25 @@
-
-
 const {
-    mockToken,
-    setupContract,
-    toUnit,
-    constants: {
-        ZERO_ADDRESS
-    },
-    fastForward,
-    currentTime
+	mockToken,
+	setupContract,
+	toUnit,
+	constants: {
+		ZERO_ADDRESS
+	},
+	fastForward,
+	currentTime
 } = require('../src/utils');
 const truffleAssert = require('truffle-assertions');
 const Elysian = artifacts.require('Elysian');
 const RewardEscrow = artifacts.require('RewardEscrow');
-const {gray, yellow} = require('chalk');
+const {
+	gray,
+	yellow
+} = require('chalk');
 
-const {fromWei, toWei} = web3.utils;
+const {
+	fromWei,
+	toWei
+} = web3.utils;
 
 contract('RewardEscrow', async accounts => {
 	const SECOND = 1000;
@@ -25,14 +29,16 @@ contract('RewardEscrow', async accounts => {
 
 	let rewardEscrow, elysian, feePool;
 
-    const [owner, account1, account2] = accounts;
-    const feePoolAccount = account1;
+	const [owner, account1, account2] = accounts;
+	const feePoolAccount = account1;
 
 	// Run once at beginning - snapshots will take care of resetting this before each test
 	before(async () => {
-        elysian = await Elysian.deployed();
-        rewardEscrow = await RewardEscrow.deployed();
-		feePool = { address: account1 }; // mock contract with address
+		elysian = await Elysian.deployed();
+		rewardEscrow = await RewardEscrow.deployed();
+		feePool = {
+			address: account1
+		}; // mock contract with address
 	});
 
 
@@ -55,9 +61,11 @@ contract('RewardEscrow', async accounts => {
 			assert.equal(nextVestingEntry[1], 0);
 		});
 		it('then vest should do nothing and not revert', async () => {
-			await rewardEscrow.vest({ from: account1 });
-            const totalVestedAccountBalanace = await rewardEscrow.totalVestedAccountBalance(account1);
-            assert.equal((fromWei(totalVestedAccountBalanace, "gwei")).toString(), '0');
+			await rewardEscrow.vest({
+				from: account1
+			});
+			const totalVestedAccountBalanace = await rewardEscrow.totalVestedAccountBalance(account1);
+			assert.equal((fromWei(totalVestedAccountBalanace, "gwei")).toString(), '0');
 		});
 	});
 
@@ -70,8 +78,9 @@ contract('RewardEscrow', async accounts => {
 				});
 
 				await truffleAssert.reverts(
-					rewardEscrow.appendVestingEntry(account1, toWei('0', "gwei"), 
-                    { from: feePoolAccount })
+					rewardEscrow.appendVestingEntry(account1, toWei('0', "gwei"), {
+						from: feePoolAccount
+					})
 				);
 			});
 
@@ -81,9 +90,10 @@ contract('RewardEscrow', async accounts => {
 					from: owner,
 				});
 				await truffleAssert.reverts(
-					rewardEscrow.appendVestingEntry(account1, toWei(`1`, "gwei"), 
-                    { from: feePoolAccount }),
-                    "Only Elysian, Treasury contracts allowed"
+					rewardEscrow.appendVestingEntry(account1, toWei(`1`, "gwei"), {
+						from: feePoolAccount
+					}),
+					"Only Elysian, Treasury contracts allowed"
 				);
 			});
 		});
@@ -96,7 +106,9 @@ contract('RewardEscrow', async accounts => {
 				});
 
 				// Add a few vesting entries as the feepool address
-				await rewardEscrow.appendVestingEntry(account1, toWei(`6000`, "gwei"), { from: owner });
+				await rewardEscrow.appendVestingEntry(account1, toWei(`6000`, "gwei"), {
+					from: owner
+				});
 				await fastForward(WEEK * 2, web3);
 				//await rewardEscrow.appendVestingEntry(account1, toWei(`2000`, "gwei"), { from: owner });
 				//await fastForward(WEEK * 4, web3);
@@ -105,13 +117,13 @@ contract('RewardEscrow', async accounts => {
 
 			it('should append a vesting entry and increase the contracts balance', async () => {
 				const balanceOfRewardEscrow = await elysian.balanceOf(rewardEscrow.address);
-                //account for two gwei transferred above
-                assert.equal((fromWei(balanceOfRewardEscrow, "gwei")).toString(), '6002');
+				//account for two gwei transferred above
+				assert.equal((fromWei(balanceOfRewardEscrow, "gwei")).toString(), '6002');
 			});
 
 			it('should get an accounts total Vested Account Balance', async () => {
 				const balanceOf = await rewardEscrow.balanceOf(account1);
-                assert.equal((fromWei(balanceOf, "gwei")).toString(), '12000');
+				assert.equal((fromWei(balanceOf, "gwei")).toString(), '12000');
 			});
 
 			it('should get an accounts number of vesting entries', async () => {
@@ -122,13 +134,13 @@ contract('RewardEscrow', async accounts => {
 			it('should get an accounts vesting schedule entry by index', async () => {
 				let vestingScheduleEntry;
 				vestingScheduleEntry = await rewardEscrow.getVestingScheduleEntry(account1, 0);
-                assert.equal((fromWei(vestingScheduleEntry[1], "gwei")).toString(), '6000');
+				assert.equal((fromWei(vestingScheduleEntry[1], "gwei")).toString(), '6000');
 
 				//vestingScheduleEntry = await rewardEscrow.getVestingScheduleEntry(account1, 1);
-                //assert.equal((fromWei(vestingScheduleEntry[1], "gwei")).toString(), '2000');
+				//assert.equal((fromWei(vestingScheduleEntry[1], "gwei")).toString(), '2000');
 
 				//vestingScheduleEntry = await rewardEscrow.getVestingScheduleEntry(account1, 2);
-                //assert.equal((fromWei(vestingScheduleEntry[1], "gwei")).toString(), '3000');
+				//assert.equal((fromWei(vestingScheduleEntry[1], "gwei")).toString(), '3000');
 			});
 
 			it('should get an accounts vesting time for a vesting entry index', async () => {
@@ -139,9 +151,9 @@ contract('RewardEscrow', async accounts => {
 			});
 
 			it('should get an accounts vesting quantity for a vesting entry index', async () => {
-                assert.equal((fromWei(await rewardEscrow.getVestingQuantity(account1, 0), "gwei")).toString(), '6000');
-                //assert.equal((fromWei(await rewardEscrow.getVestingQuantity(account1, 1), "gwei")).toString(), '2000');
-                //assert.equal((fromWei(await rewardEscrow.getVestingQuantity(account1, 2), "gwei")).toString(), '3000');
+				assert.equal((fromWei(await rewardEscrow.getVestingQuantity(account1, 0), "gwei")).toString(), '6000');
+				//assert.equal((fromWei(await rewardEscrow.getVestingQuantity(account1, 1), "gwei")).toString(), '2000');
+				//assert.equal((fromWei(await rewardEscrow.getVestingQuantity(account1, 2), "gwei")).toString(), '3000');
 			});
 		});
 
@@ -153,7 +165,9 @@ contract('RewardEscrow', async accounts => {
 				});
 
 				// Add a few vesting entries as the feepool address
-				await rewardEscrow.appendVestingEntry(account1, toWei('6000', "gwei"), { from: owner });
+				await rewardEscrow.appendVestingEntry(account1, toWei('6000', "gwei"), {
+					from: owner
+				});
 				await fastForward(WEEK, web3);
 				//await rewardEscrow.appendVestingEntry(account1, toWei('2000', "gwei"), { from: owner });
 				//await fastForward(WEEK * 4, web3);
@@ -163,7 +177,9 @@ contract('RewardEscrow', async accounts => {
 				await fastForward(YEAR - WEEK, web3);
 
 				// Vest
-				await rewardEscrow.vest({ from: account1 });
+				await rewardEscrow.vest({
+					from: account1
+				});
 			});
 
 			/*('should get an accounts next vesting entry index', async () => {
@@ -194,7 +210,7 @@ contract('RewardEscrow', async accounts => {
 					elysian.transfer(account2, toWei('1000', "gwei"), {
 						from: account1,
 					}),
-                    "Not enough LYS balance"
+					"Not enough LYS balance"
 				);
 			});
 		});
@@ -202,45 +218,51 @@ contract('RewardEscrow', async accounts => {
 		describe(yellow('Vesting'), async () => {
 			beforeEach(async () => {
 				// Transfer of LYS to the escrow must occur before creating a vestinng entry
-				await elysian.transfer(rewardEscrow.address,  toWei(`6000`, "gwei"), {
+				await elysian.transfer(rewardEscrow.address, toWei(`6000`, "gwei"), {
 					from: owner,
 				});
 
 				// Add a few vesting entries 
-				const txn =  await rewardEscrow.appendVestingEntry(account1, toWei('6000', "gwei"), { from: owner });
+				const txn = await rewardEscrow.appendVestingEntry(account1, toWei('6000', "gwei"), {
+					from: owner
+				});
 				//await fastForward(WEEK, web3);
 				//await rewardEscrow.appendVestingEntry(account1, toWei('2000', "gwei"), { from: owner });
 				//await fastForward(WEEK * 4, web3);
 				//await rewardEscrow.appendVestingEntry(account1, toWei('3000', "gwei"), { from: owner });
 				const vestedEvent = txn.logs.find(log => log.event === 'VestingEntryCreated');
-                assert.equal(vestedEvent.args[0], account1);
+				assert.equal(vestedEvent.args[0], account1);
 
 				// Need to go into the future to vest
 				await fastForward(YEAR * 2, web3);
 			});
 
 			it('should vest and transfer LYS from contract to the user', async () => {
-				const txn = await rewardEscrow.vest({ from: account1 });
+				const txn = await rewardEscrow.vest({
+					from: account1
+				});
 
 				// Check user has all their vested LYS
-                assert.equal((fromWei(await elysian.balanceOf(account1), "gwei")).toString(), '42000');
+				assert.equal((fromWei(await elysian.balanceOf(account1), "gwei")).toString(), '42000');
 
 				// Check rewardEscrow does not have any LYS except 2 gwei
-                assert.equal((fromWei(await elysian.balanceOf(rewardEscrow.address), "gwei")).toString(), '2');
-
-                // Vested(msg.sender, now, total);
-				const vestedEvent = txn.logs.find(log => log.event === 'Vested');
-
-                assert.equal(vestedEvent.args[0], account1);
-			});
-
-			it('should vest and emit a Vest event', async () => {
-				const txn = await rewardEscrow.vest({ from: account1 });
+				assert.equal((fromWei(await elysian.balanceOf(rewardEscrow.address), "gwei")).toString(), '2');
 
 				// Vested(msg.sender, now, total);
 				const vestedEvent = txn.logs.find(log => log.event === 'Vested');
 
-                assert.equal(vestedEvent.args[0], account1);
+				assert.equal(vestedEvent.args[0], account1);
+			});
+
+			it('should vest and emit a Vest event', async () => {
+				const txn = await rewardEscrow.vest({
+					from: account1
+				});
+
+				// Vested(msg.sender, now, total);
+				const vestedEvent = txn.logs.find(log => log.event === 'Vested');
+
+				assert.equal(vestedEvent.args[0], account1);
 
 			});
 

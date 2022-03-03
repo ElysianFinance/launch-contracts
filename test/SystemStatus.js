@@ -1,16 +1,25 @@
-const { assert } = require('chai');
-const { BN, constants, expectEvent, shouldFail } = require('openzeppelin-test-helpers');
+const {
+    assert
+} = require('chai');
+const {
+    BN,
+    constants,
+    expectEvent,
+    shouldFail
+} = require('openzeppelin-test-helpers');
 const SystemStatus = artifacts.require("SystemStatus");
 const w3utils = require('web3-utils');
 const truffleAssert = require('truffle-assertions');
-const {toBytes32} = require("../src/utils");
+const {
+    toBytes32
+} = require("../src/utils");
 
 contract("SystemStatus", accounts => {
 
     const account_owner = accounts[0];
     const account_user1 = accounts[1];
     const account_user2 = accounts[2];
- 
+
     it("Should be owned by first account", async () => {
         const instance = await SystemStatus.deployed();
         const owner = await instance.owner.call();
@@ -30,10 +39,12 @@ contract("SystemStatus", accounts => {
         const instance = await SystemStatus.deployed();
 
         await truffleAssert.reverts(
-            instance.suspendSystem(1024, {from: account_user1}),
+            instance.suspendSystem(1024, {
+                from: account_user1
+            }),
             "Restricted to access control list."
         );
-        
+
     })
     it("Should update access control", async () => {
         const instance = await SystemStatus.deployed();
@@ -47,7 +58,7 @@ contract("SystemStatus", accounts => {
             )
         );
     })
- 
+
     it("Should resume system", async () => {
         const instance = await SystemStatus.deployed();
 

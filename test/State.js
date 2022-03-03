@@ -1,5 +1,11 @@
-const { onlyGivenAddressCanInvoke, ensureOnlyExpectedMutativeFunctions } = require('../src/utils');
-const {gray, yellow} = require('chalk');
+const {
+	onlyGivenAddressCanInvoke,
+	ensureOnlyExpectedMutativeFunctions
+} = require('../src/utils');
+const {
+	gray,
+	yellow
+} = require('chalk');
 
 const State = artifacts.require('State');
 const TestableState = artifacts.require('TestableState');
@@ -53,7 +59,9 @@ contract('State', accounts => {
 				});
 			});
 			it('when invoked by the owner, it changes the associated owner', async () => {
-				await instance.setAssociatedContract(account2, { from: owner });
+				await instance.setAssociatedContract(account2, {
+					from: owner
+				});
 				assert.equal(await instance.associatedContract(), account2);
 			});
 		});

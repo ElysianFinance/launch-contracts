@@ -1,10 +1,17 @@
-
-
-const { assert } = require('chai');
-const { BN, constants, expectEvent, shouldFail } = require('openzeppelin-test-helpers');
+const {
+    assert
+} = require('chai');
+const {
+    BN,
+    constants,
+    expectEvent,
+    shouldFail
+} = require('openzeppelin-test-helpers');
 const w3utils = require('web3-utils');
 const truffleAssert = require('truffle-assertions');
-const {toBytes32} = require("../src/utils");
+const {
+    toBytes32
+} = require("../src/utils");
 const AddressResolver = artifacts.require("AddressResolver");
 
 contract("AddressResolver", accounts => {
@@ -13,22 +20,23 @@ contract("AddressResolver", accounts => {
     const account_user1 = accounts[1];
     const account_user2 = accounts[2];
 
-	it('when invoked with no entries, reverts', async () => {
+    it('when invoked with no entries, reverts', async () => {
         const resolver = await AddressResolver.deployed();
-		await truffleAssert.reverts(
-			resolver.requireAndGetAddress(toBytes32('xxx'), 'Some error'),
-			'Some error'
-		);
-	});
- 
+        await truffleAssert.reverts(
+            resolver.requireAndGetAddress(toBytes32('xxx'), 'Some error'),
+            'Some error'
+        );
+    });
+
     it('should add three separate addresses', async () => {
         const resolver = await AddressResolver.deployed();
 
         await truffleAssert.passes(
             resolver.importAddresses(
                 ['first', 'second', 'third'].map(toBytes32),
-                [account_owner, account_user1, account_user2],
-                { from: account_owner }
+                [account_owner, account_user1, account_user2], {
+                    from: account_owner
+                }
             )
         )
     });
@@ -47,6 +55,6 @@ contract("AddressResolver", accounts => {
             resolver.requireAndGetAddress(toBytes32('other'), 'Some error again'),
             'Some error again'
         );
-    }); 
+    });
 
 })

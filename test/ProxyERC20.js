@@ -1,5 +1,9 @@
-
-const { ensureOnlyExpectedMutativeFunctions, toUnit, toBN, mockToken} = require('../src/utils');
+const {
+	ensureOnlyExpectedMutativeFunctions,
+	toUnit,
+	toBN,
+	mockToken
+} = require('../src/utils');
 const chai = require("chai");
 const chaiBnEqual = require("chai-bn-equal");
 const chaiAsPromised = require("chai-as-promised");
@@ -13,12 +17,16 @@ chai.should();
 
 contract('ProxyERC20', accounts => {
 
-    const account_owner = accounts[0];
-    const account_user1 = accounts[1];
-    const account_user2 = accounts[2];
+	const account_owner = accounts[0];
+	const account_user1 = accounts[1];
+	const account_user2 = accounts[2];
 
 	it('Deploy mock token and test transfers', async () => {
-        const { token, tokenState, proxy } = await mockToken({
+		const {
+			token,
+			tokenState,
+			proxy
+		} = await mockToken({
 			accounts
 		});
 
@@ -32,7 +40,11 @@ contract('ProxyERC20', accounts => {
 	});
 
 	it('only known functions are mutative', async () => {
-        const { token, tokenState, proxy } = await mockToken({
+		const {
+			token,
+			tokenState,
+			proxy
+		} = await mockToken({
 			accounts
 		});
 
