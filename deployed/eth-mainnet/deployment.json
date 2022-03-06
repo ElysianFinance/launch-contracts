@@ -1,0 +1,60 @@
+{
+	"targets": {
+		"AddressResolver": {
+			"contract": "AddressResolver",
+			"address": "0xEe0c644374c41f3443c01A8ec5bb952Cb85352f5"
+		},
+		"ProxyElysian": {
+			"contract": "ProxyElysian",
+			"address": "0x94193e064Cf800d5AbFa66AD61840DD216B48C5A"
+		},
+		"TokenStateElysian": {
+			"contract": "TokenStateElysian",
+			"address": "0x1f14b16de1F6a3155C95f02659EFB5d181E97bA0"
+		},
+		"WhiteList": {
+			"contract": "WhiteList",
+			"address": "0x57223921b32c8D593F755F710e5e4A28b4Bf4B99"
+		},
+		"FlexibleStorage": {
+			"contract": "FlexibleStorage",
+			"address": "0x341118849635673D2B14Ab44d64cA9159178733B"
+		},
+		"ReadProxyAddressResolver": {
+			"contract": "ReadProxyAddressResolver",
+			"address": "0x94029F390F5d7E152Efa8A3CD0C340Ae0a3b9903"
+		},
+		"Elysian": {
+			"contract": "Elysian",
+			"address": "0x379436B3d32B61586c334e742f2a1f708f1f3F9a"
+		},
+		"RewardEscrow": {
+			"contract": "RewardEscrow",
+			"address": "0x259fa6038FAD4ffF89CaC91a809f7904dbb85bcE"
+		},
+		"ExchangeRates": {
+			"contract": "ExchangeRates",
+			"address": "0x67D9C66E9d14a698B8C7a64DA3E390A2960CFab5"
+		},
+		"SystemStatus": {
+			"contract": "SystemStatus",
+			"address": "0x7622705174580CbD0eDDF78BfD46926F2a1f6b9f"
+		},
+		"SafeMath": {
+			"contract": "SafeMath",
+			"address": "0xf9447c5588acf75f379b81a800Cd9BF058860043"
+		},
+		"SafeDecimalMath": {
+			"contract": "SafeDecimalMath",
+			"address": "0xD9Be09fCdC55542FB50D6A550f1C77722B60Bc31"
+		},
+		"SystemSettings": {
+			"contract": "SystemSettings",
+			"address": "0x5a0E3eaE2Ab5168dfD4c3e988A5964A17bD0E5d3"
+		},
+		"Presale": {
+			"contract": "Presale",
+			"address": "0xA01a4DD8D77B70c69fAaD2Df169c9e0829D5a4D5"
+		}
+	}
+}
