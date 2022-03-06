@@ -20,8 +20,10 @@ contract SystemStatus is OwnedwManager {
     mapping(bytes32 => mapping(address => Status)) public accessControl;
     uint248 public constant SUSPENSION_REASON_UPGRADE = 1;
     bytes32 public constant SECTION_SYSTEM = "System";
+    bytes32 public constant SECTION_ISSUANCE = "Issuance";
 
     Suspension public systemSuspension;
+    Suspension public issuanceSuspension;
 
     constructor(address _owner) public OwnedwManager(_owner, _owner) {}
 
@@ -29,6 +31,15 @@ contract SystemStatus is OwnedwManager {
     function requireSystemActive() external view {
         _internalRequireSystemActive();
     }
+
+    function requireIssuanceActive() external view {
+        // Issuance requires the system be active
+        _internalRequireSystemActive();
+
+        // and issuance itself of course
+        _internalRequireIssuanceActive();
+    }
+
 
     function isSystemUpgrading() external view returns (bool) {
         return systemSuspension.suspended && systemSuspension.reason == SUSPENSION_REASON_UPGRADE;
@@ -75,6 +86,20 @@ contract SystemStatus is OwnedwManager {
         systemSuspension.reason = 0;
     }
 
+    function suspendIssuance(uint256 reason) external {
+        _requireAccessToSuspend(SECTION_ISSUANCE);
+        issuanceSuspension.suspended = true;
+        issuanceSuspension.reason = uint248(reason);
+        emit IssuanceSuspended(reason);
+    }
+
+    function resumeIssuance() external {
+        _requireAccessToResume(SECTION_ISSUANCE);
+        issuanceSuspension.suspended = false;
+        emit IssuanceResumed(uint256(issuanceSuspension.reason));
+        issuanceSuspension.reason = 0;
+    }
+
     /* ========== INTERNAL FUNCTIONS ========== */
 
     function _requireAccessToSuspend(bytes32 section) internal view {
@@ -92,6 +117,10 @@ contract SystemStatus is OwnedwManager {
                 ? "System is suspended, upgrade in progress... please stand by"
                 : "System is suspended. Operation prohibited"
         );
+    }
+
+    function _internalRequireIssuanceActive() internal view {
+        require(!issuanceSuspension.suspended, "Issuance is suspended. Operation prohibited");
     }
 
     function _internalUpdateAccessControl(
@@ -114,6 +143,8 @@ contract SystemStatus is OwnedwManager {
     event SystemSuspended(uint256 reason);
     event SystemResumed(uint256 reason);
 
+    event IssuanceSuspended(uint256 reason);
+    event IssuanceResumed(uint256 reason);
 
     event AccessControlUpdated(bytes32 indexed section, address indexed account, bool canSuspend, bool canResume);
 }
