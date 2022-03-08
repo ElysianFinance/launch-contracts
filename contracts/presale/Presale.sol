@@ -57,7 +57,7 @@ contract Presale is OwnedwManager, MixinResolver, MixinSystemSettings, Reentranc
     MixinSystemSettings(_resolver) {
         pLYS = IERC20(_preElysian);
         participants = _participants;
-        allocated = 30 * 10e6 ether;
+        allocated = 30 * 1e6 ether;
         available = allocated;
         isPaused = false;
     }
