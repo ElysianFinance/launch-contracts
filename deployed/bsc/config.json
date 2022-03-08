@@ -1,0 +1,174 @@
+{
+	"SafeMath": {
+		"deploy": false,
+		"pars": []
+	},
+	"SafeDecimalMath": {
+		"deploy": false,
+		"pars": []
+	},
+	"FlexibleStorage": {
+		"deploy": false,
+		"pars": [
+			"resolverNeeded"
+		]
+	},
+	"AddressResolver": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"ReadProxyAddressResolver": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"ProxyElysian": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"sElysianERC20": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"resolverNeeded",
+			1
+		]
+	},
+	"Elysian": {
+		"deploy": false,
+		"pars": [
+			"needProxy",
+			"needTokenState",
+			"owner",
+			0,
+			"resolverNeeded"
+		]
+	},
+	"Exchange": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"needState",
+			"resolverNeeded",
+			true
+		]
+	},
+	"ExchangeState": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"owner"
+		]
+	},
+	"WhiteList": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"Presale": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"0xba7A7268Fcb7DB457336265d6b99039c427FeFC6",
+			"0x371e1bC5d352edcE6036F2f89569a3245728907a",
+			235
+		]
+	},
+	"MyTreasury": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"needState",
+			"resolverNeeded"
+		]
+	},
+	"MyTreasuryState": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"owner"
+		]
+	},
+	"TreasuryVault": {
+		"deploy": false,
+		"pars": [
+			"resolverNeeded"
+		]
+	},
+	"StakingWarmup": {
+		"deploy": false,
+		"pars": [
+			"resolverNeeded"
+		]
+	},
+	"TokenStateElysian": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"owner"
+		]
+	},
+	"ElysianEscrow": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"0x0000000000000000000000000000000000000000"
+		]
+	},
+	"RewardEscrow": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"resolverNeeded"
+		]
+	},
+	"Distributor": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"resolverNeeded"
+		]
+	},
+	"ElysianStaking": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"resolverNeeded",
+			20,
+			1,
+			13498398
+		]
+	},
+	"ExchangeRates": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"oracle",
+			[
+				"0x5553440000000000000000000000000000000000000000000000000000000000"
+			],
+			[
+				1
+			]
+		]
+	},
+	"SystemStatus": {
+		"deploy": false,
+		"pars": [
+			"owner"
+		]
+	},
+	"SystemSettings": {
+		"deploy": false,
+		"pars": [
+			"owner",
+			"resolverNeeded"
+		]
+	}
+}
